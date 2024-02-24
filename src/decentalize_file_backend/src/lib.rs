@@ -1,7 +1,7 @@
-//use ic_cdk_macros::export;
+
 use ic_cdk::export;
-use ic_cdk::export::candid::{CandidType, Deserialize, Func, Principal};
-use ic_cdk::print;
+use ic_cdk::export::candid::{CandidType, Deserialize, Principal};
+use serde::Serialize;
 
 
 // Define data structures for files and directories
@@ -77,6 +77,40 @@ impl FileStorage for DecentralizedFileStorage {
         self.root_directory.subdirectories.push(new_directory);
         Ok(())
     }
+}
 
-    // Implement other methods such as listing files in a directory, deleting files/directories, etc.
+#[export_name = "canister_query upload_file"]
+fn upload_file(directory_path: String, file_name: String, content: Vec<u8>) -> Result<(), String> {
+    let mut storage = DecentralizedFileStorage {
+        root_directory: Directory {
+            name: "root".to_string(),
+            files: Vec::new(),
+            subdirectories: Vec::new(),
+        },
+    };
+    storage.upload_file(directory_path, file_name, content)
+}
+
+#[export_name = "canister_query download_file"]
+fn download_file(file_path: String) -> Result<Vec<u8>, String> {
+    let storage = DecentralizedFileStorage {
+        root_directory: Directory {
+            name: "root".to_string(),
+            files: Vec::new(),
+            subdirectories: Vec::new(),
+        },
+    };
+    storage.download_file(file_path)
+}
+
+#[export_name = "canister_query create_directory"]
+fn create_directory(parent_directory_path: String, directory_name: String) -> Result<(), String> {
+    let mut storage = DecentralizedFileStorage {
+        root_directory: Directory {
+            name: "root".to_string(),
+            files: Vec::new(),
+            subdirectories: Vec::new(),
+        },
+    };
+    storage.create_directory(parent_directory_path, directory_name)
 }
