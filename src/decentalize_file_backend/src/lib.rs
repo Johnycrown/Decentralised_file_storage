@@ -1,6 +1,8 @@
 
-use ic_cdk::export;
-use ic_cdk::export::candid::{CandidType, Deserialize, Principal};
+//use ic_cdk::export;
+use std::option::Option;
+use std::iter::{Iterator, DoubleEndedIterator};
+use ic_cdk::export::candid::{CandidType, Deserialize};
 use serde::Serialize;
 
 
@@ -19,7 +21,8 @@ struct Directory {
 }
 
 // Define a trait for interacting with the file storage system
-#[export]
+
+//car#[export]
 trait FileStorage {
     fn upload_file(&mut self, directory_path: String, file_name: String, content: Vec<u8>) -> Result<(), String>;
     fn download_file(&self, file_path: String) -> Result<Vec<u8>, String>;

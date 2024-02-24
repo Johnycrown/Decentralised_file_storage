@@ -319,6 +319,7 @@ dependencies = [
  "ic-cdk",
  "ic-cdk-macros 0.8.4",
  "ic-cdk-timers",
+ "memchr",
  "reqwest",
  "serde",
  "serde_json",
