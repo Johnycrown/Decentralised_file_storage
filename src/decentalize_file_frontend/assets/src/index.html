@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decentralized File Storage System</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+    <h1>Decentralized File Storage System</h1>
+    
+    <div>
+        <h2>Upload File</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload</button>
+    </div>
+    
+    <div>
+        <h2>Download File</h2>
+        <input type="text" id="downloadFileName" placeholder="Enter file name">
+        <button onclick="downloadFile()">Download</button>
+    </div>
+    
+    <div>
+        <h2>Create Directory</h2>
+        <input type="text" id="newDirectoryName" placeholder="Enter directory name">
+        <button onclick="createDirectory()">Create</button>
+    </div>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('An error occurred while uploading the file.');
+            }
+        }
+        
+        async function downloadFile() {
+            const fileName = document.getElementById('downloadFileName').value;
+            
+            try {
+                const response = await fetch(`/download/${fileName}`);
+                if (!response.ok) {
+                    alert('File not found');
+                    return;
+                }
+                const fileContent = await response.blob();
+                const url = window.URL.createObjectURL(fileContent);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error downloading file:', error);
+                alert('An error occurred while downloading the file.');
+            }
+        }
+        
+        async function createDirectory() {
+            const directoryName = document.getElementById('newDirectoryName').value;
+            
+            try {
+                const response = await fetch(`/create-directory/${directoryName}`, {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                alert(result.message);
+            } catch (error) {
+                console.error('Error creating directory:', error);
+                alert('An error occurred while creating the directory.');
+            }
+        }
+    </script>
+</body>
+</html>
