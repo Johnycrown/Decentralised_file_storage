@@ -1,5 +1,6 @@
 
 //use ic_cdk::export;
+
 use std::option::Option;
 use std::iter::{Iterator, DoubleEndedIterator};
 use ic_cdk::export::candid::{CandidType, Deserialize};
@@ -35,7 +36,7 @@ struct DecentralizedFileStorage {
 }
 
 impl FileStorage for DecentralizedFileStorage {
-    fn upload_file(&mut self, directory_path: String, file_name: String, content: Vec<u8>) -> Result<(), String> {
+    fn upload_file(&mut self, _directory_path: String, file_name: String, content: Vec<u8>) -> Result<(), String> {
         
         // Create a new File instance with the provided content
         let new_file = File {
@@ -60,7 +61,7 @@ impl FileStorage for DecentralizedFileStorage {
         Err("File not found".to_string())
     }
 
-    fn create_directory(&mut self, parent_directory_path: String, directory_name: String) -> Result<(), String> {
+    fn create_directory(&mut self, _parent_directory_path: String, directory_name: String) -> Result<(), String> {
        
         // Create a new Directory instance
         let new_directory = Directory {
