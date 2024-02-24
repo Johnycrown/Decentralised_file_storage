@@ -1,9 +1,7 @@
-**Decentralized File Storage System
-
+**Decentralized File Storage System**
 This project implements a decentralized file storage system using the Internet Computer platform. It allows users to upload files, download files, and create directories within a decentralized environment.
 
-**Overview
-**
+**Overview**
 The decentralized file storage system is implemented using Rust programming language and leverages the Internet Computer's Canister Development Kit (CDK) for communication and interaction with the platform.
 
 The system consists of the following components:
