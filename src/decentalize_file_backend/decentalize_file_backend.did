@@ -1,3 +1,17 @@
+type File = {
+    name: text;
+    content: blob;
+};
+
+type Directory = {
+    name: text;
+    files: vec File;
+    subdirectories: vec Directory;
+};
+
 service : {
-    "greet": (text) -> (text) query;
-}
+    upload_file: (text, text, blob) -> (variant {Ok: null; Err: text});
+    download_file: (text) -> (variant {Ok: blob; Err: text});
+    create_directory: (text, text) -> (variant {Ok: null; Err: text});
+};
+

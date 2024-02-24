@@ -33,8 +33,6 @@ struct DecentralizedFileStorage {
 
 impl FileStorage for DecentralizedFileStorage {
     fn upload_file(&mut self, directory_path: String, file_name: String, content: Vec<u8>) -> Result<(), String> {
-        // Find the directory specified by directory_path
-        // If directory doesn't exist, return an error
         
         // Create a new File instance with the provided content
         let new_file = File {
@@ -49,9 +47,7 @@ impl FileStorage for DecentralizedFileStorage {
     }
 
     fn download_file(&self, file_path: String) -> Result<Vec<u8>, String> {
-        // Find the file specified by file_path
-        // If file doesn't exist, return an error
-        
+       
         // Return the content of the file
         for file in &self.root_directory.files {
             if file.name == file_path {
@@ -62,9 +58,7 @@ impl FileStorage for DecentralizedFileStorage {
     }
 
     fn create_directory(&mut self, parent_directory_path: String, directory_name: String) -> Result<(), String> {
-        // Find the parent directory specified by parent_directory_path
-        // If parent directory doesn't exist, return an error
-        
+       
         // Create a new Directory instance
         let new_directory = Directory {
             name: directory_name.clone(),
