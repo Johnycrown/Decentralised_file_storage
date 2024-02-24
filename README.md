@@ -1,61 +1,42 @@
-# decentalize_file
+**Decentralized File Storage System
 
-Welcome to your new decentalize_file project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+This project implements a decentralized file storage system using the Internet Computer platform. It allows users to upload files, download files, and create directories within a decentralized environment.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+**Overview
+**
+The decentralized file storage system is implemented using Rust programming language and leverages the Internet Computer's Canister Development Kit (CDK) for communication and interaction with the platform.
 
-To learn more before you start working with decentalize_file, see the following documentation available online:
+The system consists of the following components:
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
-- [Rust Canister Development Guide](https://internetcomputer.org/docs/current/developer-docs/backend/rust/)
-- [ic-cdk](https://docs.rs/ic-cdk)
-- [ic-cdk-macros](https://docs.rs/ic-cdk-macros)
-- [Candid Introduction](https://internetcomputer.org/docs/current/developer-docs/backend/candid/)
+**File struct**: Represents a file with a name and content.
+**Directory struct**: Represents a directory with a name, containing files, and subdirectories.
+**FileStorage trait**: Defines methods for uploading files, downloading files, and creating directories.
+**DecentralizedFileStorage** struct: Implements the FileStorage trait for decentralized file storage.
 
-If you want to start working on your project right away, you might want to try the following commands:
+**Usage**
 
-```bash
-cd decentalize_file/
-dfx help
-dfx canister --help
-```
+**Uploading a File**
+To upload a file, use the upload_file method of the FileStorage trait. Provide the directory path, file name, and file content as parameters. This method returns a Result indicating success or failure.
 
-## Running the project locally
+**Downloading a File**
+To download a file, use the download_file method of the FileStorage trait. Provide the file path as a parameter. This method returns a Result containing the file content if the file exists, otherwise an error indicating file not found.
 
-If you want to test your project locally, you can use the following commands:
+**Creating a Directory**
+To create a directory, use the create_directory method of the FileStorage trait. Provide the parent directory path and the directory name as parameters. This method returns a Result indicating success or failure.
 
-```bash
-# Starts the replica, running in the background
-dfx start --background
+**Implementation Details**
 
-# Deploys your canisters to the replica and generates your candid interface
-dfx deploy
-```
+The DecentralizedFileStorage struct maintains the root directory of the file storage system.
+Files are stored as instances of the File struct within directories.
+Directories are stored as instances of the Directory struct, which may contain files and subdirectories.
+The **upload_file**, **download_file**, and **create_directory** methods of the **FileStorage** trait are implemented to interact with the file storage system.
+Queries for uploading, downloading, and creating directories are exposed through export functions (canister_query functions) for interaction with the Internet Computer platform.
 
-Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
+**Getting Started**
 
-If you have made changes to your backend canister, you can generate a new candid interface with
+To get started with using the decentralized file storage system, follow these steps:
 
-```bash
-npm run generate
-```
-
-at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
-
-If you are making frontend changes, you can start a development server with
-
-```bash
-npm start
-```
-
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
-
-### Note on frontend environment variables
-
-If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:
-
-- set`DFX_NETWORK` to `ic` if you are using Webpack
-- use your own preferred method to replace `process.env.DFX_NETWORK` in the autogenerated declarations
-  - Setting `canisters -> {asset_canister_id} -> declarations -> env_override to a string` in `dfx.json` will replace `process.env.DFX_NETWORK` with the string in the autogenerated declarations
-- Write your own `createActor` constructor
+1. Ensure that you have Rust and the Internet Computer development environment set up.
+2. Clone the repository containing the project code.
+3. Build and deploy the canister containing the file storage system to the Internet Computer.
+4. Use the exported functions to interact with the file storage system.
