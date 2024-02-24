@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "decentalize_file_backend": {
+      "candid": "src/decentalize_file_backend/decentalize_file_backend.did",
+      "package": "decentalize_file_backend",
+      "type": "rust"
+    },
+    "decentalize_file_frontend": {
+      "dependencies": [
+        "decentalize_file_backend"
+      ],
+      "source": [
+        "src/decentalize_file_frontend/assets"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
